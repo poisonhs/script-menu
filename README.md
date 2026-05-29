@@ -18,9 +18,7 @@
     |-- ip-check.sh
     |-- media-check.sh
     |-- node-quality.sh
-    |-- singbox-lite.sh
-    |-- all-auto.sh
-    `-- base-auto.sh
+    `-- singbox-lite.sh
 ```
 
 ## 工作方式
