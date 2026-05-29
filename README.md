@@ -6,6 +6,7 @@
 
 ```text
 .
+|-- install-bl.sh
 |-- bootstrap.sh
 |-- install.sh
 `-- scripts/
@@ -76,6 +77,18 @@ curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/bootstrap
 
 ```sh
 wget -qO- https://raw.githubusercontent.com/poisonhs/script-menu/main/bootstrap.sh | sh
+```
+
+安装 `bl` 短命令：
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install-bl.sh | sh
+```
+
+安装完成后，后续直接运行：
+
+```sh
+bl
 ```
 
 说明：
