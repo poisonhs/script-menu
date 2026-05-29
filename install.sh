@@ -109,18 +109,18 @@ run_downloaded_script() {
 
 show_menu() {
   print_header
-  printf "%s[1]%s Ubuntu/Debian 基础环境安装 %s(apt-base)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[2]%s Alpine 基础环境安装 %s(apk-base)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[3]%s Docker 安装 %s(docker)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[4]%s 节点搭建 Singbox Lite %s(singbox-lite)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[5]%s IP 质量检测 IPv4 %s(ip-check)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[6]%s 添加 SWAP %s(add-swap)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[7]%s SWAP 检测 %s(check-swap)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[8]%s 流媒体检测 %s(media-check)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[9]%s BBR 检测 %s(check-bbr)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[10]%s NodeQuality 质量检测 %s(node-quality)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[1]%s Ubuntu/Debian 基础环境安装\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[2]%s Alpine 基础环境安装\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[3]%s Docker 安装\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[4]%s 节点搭建 Singbox Lite\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[5]%s IP 质量检测 IPv4\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[6]%s 添加 SWAP\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[7]%s SWAP 检测\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[8]%s 流媒体检测\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[9]%s BBR 检测\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[10]%s NodeQuality 质量检测\n" "${C_NUM}" "${C_RESET}"
   printf "%s[11]%s 退出\n" "${C_NUM}" "${C_RESET}"
-  printf "\n%s提示：%s 也可以直接传脚本名执行，例如：%sbash install.sh apt-base%s\n" "${C_WARN}" "${C_RESET}" "${C_OK}" "${C_RESET}"
+  printf "\n%s提示：%s 也可以直接输入脚本名执行，例如：%sapt-base%s\n" "${C_WARN}" "${C_RESET}" "${C_OK}" "${C_RESET}"
 }
 
 run_remote_script() {
