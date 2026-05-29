@@ -1,8 +1,8 @@
-# GitHub Online Script Menu
+# GitHub 在线脚本菜单
 
 一个可以放在 GitHub 上在线运行的脚本菜单仓库，支持多个安装脚本集中管理，并通过中文彩色菜单选择执行。
 
-## Structure
+## 目录结构
 
 ```text
 .
@@ -23,11 +23,11 @@
     `-- all-auto.sh
 ```
 
-## How it works
+## 工作方式
 
-- `install.sh` is the main entry point.
-- Each script in `scripts/` has its own name.
-- Users can run the main script from GitHub Raw and pick an option.
+- `install.sh` 是主入口脚本。
+- `scripts/` 目录下的每个脚本都有独立名称。
+- 用户可以通过 GitHub Raw 运行主脚本，然后在菜单中选择对应功能。
 
 ## 当前菜单
 
@@ -44,13 +44,13 @@
 - `check-bbr`: BBR 检测
 - `node-quality`: NodeQuality 质量检测
 
-## Before using
+## 使用前说明
 
-This template is already configured for:
+当前模板已经配置为：
 
 - `poisonhs/script-menu`
 
-## Usage
+## 使用方法
 
 推荐启动
 
@@ -100,8 +100,8 @@ curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.s
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- node-quality
 ```
 
-## Suggested workflow
+## 建议流程
 
-1. Create the GitHub repository `script-menu` under `poisonhs`.
-2. Push these files.
-3. Use the Raw URL to run the scripts online.
+1. 在 `poisonhs` 账号下创建 `script-menu` 仓库。
+2. 推送这些文件。
+3. 使用 Raw 链接在线运行脚本。
