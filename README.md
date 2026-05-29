@@ -24,12 +24,6 @@
     `-- singbox-lite.sh
 ```
 
-## 工作方式
-
-- `install.sh` 是主入口脚本。
-- `scripts/` 目录下的每个脚本都有独立名称。
-- 用户可以通过 GitHub Raw 运行主脚本，然后在菜单中选择对应功能。
-
 ## 当前菜单
 
 - `apt-base`: Ubuntu/Debian 基础环境安装
