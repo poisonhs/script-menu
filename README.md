@@ -52,19 +52,25 @@ This template is already configured for:
 
 ## Usage
 
-中文彩色菜单：
+推荐启动：
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh)
+curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/bootstrap.sh | sh
 ```
 
-无 `curl` / `wget` 的新机器，推荐先用这个自动识别启动命令：
+如果机器只有 `wget`：
+
+```sh
+wget -qO- https://raw.githubusercontent.com/poisonhs/script-menu/main/bootstrap.sh | sh
+```
+
+如果机器没有 `curl` / `wget`，再用这个自动识别启动命令：
 
 ```sh
 sh -c 'URL="https://raw.githubusercontent.com/poisonhs/script-menu/main/bootstrap.sh"; if command -v curl >/dev/null 2>&1; then curl -fsSL "$URL" | sh; elif command -v wget >/dev/null 2>&1; then wget -qO- "$URL" | sh; elif command -v apt >/dev/null 2>&1; then apt update -y && apt install -y bash curl wget sudo vim git && curl -fsSL "$URL" | sh; elif command -v apk >/dev/null 2>&1; then apk update && apk add bash curl wget sudo vim git && curl -fsSL "$URL" | sh; elif command -v dnf >/dev/null 2>&1; then dnf install -y bash curl wget sudo vim git && curl -fsSL "$URL" | sh; elif command -v yum >/dev/null 2>&1; then yum install -y bash curl wget sudo vim git && curl -fsSL "$URL" | sh; else echo "不支持的系统：缺少 curl/wget，且未找到 apt/apk/dnf/yum"; exit 1; fi'
 ```
 
-上面这个启动方式会先下载到临时文件，再执行，所以菜单可以正常交互输入。
+`bootstrap.sh` 会先下载 `install.sh` 到临时文件，再执行，所以菜单可以正常交互输入。
 
 按脚本名直接执行：
 

@@ -186,6 +186,8 @@ prompt_choice() {
 }
 
 main() {
+  ensure_fetch_tools
+
   if [[ $# -gt 0 ]]; then
     run_choice "$1"
     return
