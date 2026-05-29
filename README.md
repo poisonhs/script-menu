@@ -1,6 +1,6 @@
 # GitHub Online Script Menu
 
-This repository structure lets you keep multiple install scripts on GitHub and run them online.
+一个可以放在 GitHub 上在线运行的脚本菜单仓库，支持多个安装脚本集中管理，并通过中文彩色菜单选择执行。
 
 ## Structure
 
@@ -20,6 +20,13 @@ This repository structure lets you keep multiple install scripts on GitHub and r
 - Each script in `scripts/` has its own name.
 - Users can run the main script from GitHub Raw and pick an option.
 
+## 当前菜单
+
+- `apt-base`: Ubuntu/Debian 基础环境安装
+- `apk-base`: Alpine 基础环境安装
+- `docker`: Docker 安装
+- `all-auto`: 自动识别系统并安装基础环境 + Docker
+
 ## Before using
 
 This template is already configured for:
@@ -28,13 +35,13 @@ This template is already configured for:
 
 ## Usage
 
-Interactive menu:
+中文彩色菜单：
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh)
 ```
 
-Run a named script directly:
+按脚本名直接执行：
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- apt-base
