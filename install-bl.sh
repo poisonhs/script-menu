@@ -14,9 +14,9 @@ set -eu
 URL="${LAUNCHER_URL}"
 
 if command -v curl >/dev/null 2>&1; then
-  exec sh -c 'curl -fsSL "$1" | sh' sh "\$URL"
+  exec sh -c 'curl -fsSL "\$1" | sh' sh "\$URL"
 elif command -v wget >/dev/null 2>&1; then
-  exec sh -c 'wget -qO- "$1" | sh' sh "\$URL"
+  exec sh -c 'wget -qO- "\$1" | sh' sh "\$URL"
 else
   echo "未检测到 curl 或 wget，请先安装后再运行 bl。"
   exit 1
