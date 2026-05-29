@@ -169,7 +169,6 @@ show_menu() {
   printf "%s[11]%s BBR 优化\n" "${C_NUM}" "${C_RESET}"
   printf "%s[12]%s NodeQuality 质量检测\n" "${C_NUM}" "${C_RESET}"
   printf "%s[13]%s 退出\n" "${C_NUM}" "${C_RESET}"
-  printf "\n%s提示：%s 也可以直接输入脚本名执行，例如：%sapt-base%s\n" "${C_WARN}" "${C_RESET}" "${C_OK}" "${C_RESET}"
 }
 
 run_remote_script() {
