@@ -2,49 +2,6 @@
 
 一个可以放在 GitHub 上在线运行的脚本菜单仓库，支持多个安装脚本集中管理，并通过中文彩色菜单选择执行。
 
-## 目录结构
-
-```text
-.
-|-- install-bl.sh
-|-- bootstrap.sh
-|-- install.sh
-`-- scripts/
-    |-- apt-base.sh
-    |-- apk-base.sh
-    |-- add-swap.sh
-    |-- bbr-optimize.sh
-    |-- check-bbr.sh
-    |-- check-swap.sh
-    |-- docker.sh
-    |-- ip-check.sh
-    |-- media-check.sh
-    |-- node-quality.sh
-    |-- ping-check.sh
-    `-- singbox-lite.sh
-```
-
-## 当前菜单
-
-- `apt-base`: Ubuntu/Debian 基础环境安装
-- `apk-base`: Alpine 基础环境安装
-- `docker`: Docker 安装
-- `singbox-lite`: 节点搭建 Singbox Lite
-- `ip-check`: IP 质量检测 IPv4
-- `add-swap`: 添加 SWAP
-- `check-swap`: SWAP 检测
-- `media-check`: 流媒体检测
-- `check-bbr`: BBR 检测
-- `ping-check`: Ping 检测
-- `bbr-optimize`: BBR 优化
-- `node-quality`: NodeQuality 质量检测
-
-## 使用前说明
-
-当前模板已经配置为：
-
-- `poisonhs/script-menu`
-
 ## 使用方法
 
 推荐启动
