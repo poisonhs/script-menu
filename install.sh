@@ -136,10 +136,16 @@ get_display_name() {
     9|check-bbr)
       printf "BBR 检测"
       ;;
-    10|node-quality)
+    10|ping-check)
+      printf "Ping 检测"
+      ;;
+    11|bbr-optimize)
+      printf "BBR 优化"
+      ;;
+    12|node-quality)
       printf "NodeQuality 质量检测"
       ;;
-    11|exit)
+    13|exit)
       printf "退出"
       ;;
     *)
@@ -159,8 +165,10 @@ show_menu() {
   printf "%s[7]%s SWAP 检测\n" "${C_NUM}" "${C_RESET}"
   printf "%s[8]%s 流媒体检测\n" "${C_NUM}" "${C_RESET}"
   printf "%s[9]%s BBR 检测\n" "${C_NUM}" "${C_RESET}"
-  printf "%s[10]%s NodeQuality 质量检测\n" "${C_NUM}" "${C_RESET}"
-  printf "%s[11]%s 退出\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[10]%s Ping 检测\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[11]%s BBR 优化\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[12]%s NodeQuality 质量检测\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[13]%s 退出\n" "${C_NUM}" "${C_RESET}"
   printf "\n%s提示：%s 也可以直接输入脚本名执行，例如：%sapt-base%s\n" "${C_WARN}" "${C_RESET}" "${C_OK}" "${C_RESET}"
 }
 
@@ -202,10 +210,16 @@ run_choice() {
     9|check-bbr)
       run_remote_script "check-bbr"
       ;;
-    10|node-quality)
+    10|ping-check)
+      run_remote_script "ping-check"
+      ;;
+    11|bbr-optimize)
+      run_remote_script "bbr-optimize"
+      ;;
+    12|node-quality)
       run_remote_script "node-quality"
       ;;
-    11|exit)
+    13|exit)
       printf "%s已退出。%s\n" "${C_WARN}" "${C_RESET}"
       ;;
     *)
@@ -220,7 +234,7 @@ prompt_choice() {
   read -r MENU_CHOICE
 
   case "${MENU_CHOICE:-}" in
-    1|2|3|4|5|6|7|8|9|10|11|apt-base|apk-base|docker|singbox-lite|ip-check|add-swap|check-swap|media-check|check-bbr|node-quality|exit)
+    1|2|3|4|5|6|7|8|9|10|11|12|13|apt-base|apk-base|docker|singbox-lite|ip-check|add-swap|check-swap|media-check|check-bbr|ping-check|bbr-optimize|node-quality|exit)
       return 0
       ;;
     *)
@@ -245,7 +259,7 @@ main() {
       continue
     fi
 
-    if [[ "${MENU_CHOICE}" == "11" || "${MENU_CHOICE}" == "exit" ]]; then
+    if [[ "${MENU_CHOICE}" == "13" || "${MENU_CHOICE}" == "exit" ]]; then
       run_choice "$MENU_CHOICE"
       return
     fi

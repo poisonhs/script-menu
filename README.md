@@ -12,12 +12,14 @@
     |-- apt-base.sh
     |-- apk-base.sh
     |-- add-swap.sh
+    |-- bbr-optimize.sh
     |-- check-bbr.sh
     |-- check-swap.sh
     |-- docker.sh
     |-- ip-check.sh
     |-- media-check.sh
     |-- node-quality.sh
+    |-- ping-check.sh
     `-- singbox-lite.sh
 ```
 
@@ -38,6 +40,8 @@
 - `check-swap`: SWAP 检测
 - `media-check`: 流媒体检测
 - `check-bbr`: BBR 检测
+- `ping-check`: Ping 检测
+- `bbr-optimize`: BBR 优化
 - `node-quality`: NodeQuality 质量检测
 
 ## 使用前说明
@@ -91,6 +95,8 @@ curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.s
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- check-swap
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- media-check
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- check-bbr
+curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- ping-check
+curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- bbr-optimize
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- node-quality
 ```
 
