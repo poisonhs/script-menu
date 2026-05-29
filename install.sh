@@ -95,6 +95,18 @@ fetch_script() {
   fi
 }
 
+run_downloaded_script() {
+  local script_name="$1"
+  local tmp_file
+
+  tmp_file="/tmp/script-menu-${script_name}-$$.$(date +%s).sh"
+  fetch_script "${REPO_RAW_BASE}/scripts/${script_name}.sh" > "${tmp_file}"
+  chmod +x "${tmp_file}"
+
+  bash "${tmp_file}"
+  rm -f "${tmp_file}"
+}
+
 show_menu() {
   print_header
   printf "%s[1]%s Ubuntu/Debian 基础环境安装 %s(apt-base)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
@@ -114,7 +126,7 @@ show_menu() {
 run_remote_script() {
   local script_name="$1"
   printf "%s正在执行：%s%s%s\n" "${C_OK}" "${C_NUM}" "${script_name}" "${C_RESET}"
-  fetch_script "${REPO_RAW_BASE}/scripts/${script_name}.sh" | bash
+  run_downloaded_script "${script_name}"
 }
 
 run_choice() {
