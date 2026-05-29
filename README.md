@@ -12,7 +12,6 @@
     |-- apt-base.sh
     |-- apk-base.sh
     |-- add-swap.sh
-    |-- base-auto.sh
     |-- check-bbr.sh
     |-- check-swap.sh
     |-- docker.sh
@@ -20,7 +19,8 @@
     |-- media-check.sh
     |-- node-quality.sh
     |-- singbox-lite.sh
-    `-- all-auto.sh
+    |-- all-auto.sh
+    `-- base-auto.sh
 ```
 
 ## 工作方式
@@ -34,8 +34,6 @@
 - `apt-base`: Ubuntu/Debian 基础环境安装
 - `apk-base`: Alpine 基础环境安装
 - `docker`: Docker 安装
-- `all-auto`: 自动识别系统并安装基础环境 + Docker
-- `base-auto`: 自动识别系统并安装基础环境
 - `singbox-lite`: 节点搭建 Singbox Lite
 - `ip-check`: IP 质量检测 IPv4
 - `add-swap`: 添加 SWAP
@@ -89,8 +87,6 @@ wget -qO- https://raw.githubusercontent.com/poisonhs/script-menu/main/bootstrap.
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- apt-base
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- apk-base
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- docker
-curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- all-auto
-curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- base-auto
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- singbox-lite
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- ip-check
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- add-swap

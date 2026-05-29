@@ -100,16 +100,14 @@ show_menu() {
   printf "%s[1]%s Ubuntu/Debian 基础环境安装 %s(apt-base)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
   printf "%s[2]%s Alpine 基础环境安装 %s(apk-base)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
   printf "%s[3]%s Docker 安装 %s(docker)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[4]%s 自动识别系统并安装基础环境 + Docker %s(all-auto)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[5]%s 自动识别系统并安装基础环境 %s(base-auto)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[6]%s 节点搭建 Singbox Lite %s(singbox-lite)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[7]%s IP 质量检测 IPv4 %s(ip-check)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[8]%s 添加 SWAP %s(add-swap)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[9]%s SWAP 检测 %s(check-swap)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[10]%s 流媒体检测 %s(media-check)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[11]%s BBR 检测 %s(check-bbr)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[12]%s NodeQuality 质量检测 %s(node-quality)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[13]%s 退出\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[4]%s 节点搭建 Singbox Lite %s(singbox-lite)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[5]%s IP 质量检测 IPv4 %s(ip-check)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[6]%s 添加 SWAP %s(add-swap)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[7]%s SWAP 检测 %s(check-swap)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[8]%s 流媒体检测 %s(media-check)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[9]%s BBR 检测 %s(check-bbr)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[10]%s NodeQuality 质量检测 %s(node-quality)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[11]%s 退出\n" "${C_NUM}" "${C_RESET}"
   printf "\n%s提示：%s 也可以直接传脚本名执行，例如：%sbash install.sh apt-base%s\n" "${C_WARN}" "${C_RESET}" "${C_OK}" "${C_RESET}"
 }
 
@@ -130,34 +128,28 @@ run_choice() {
     3|docker)
       run_remote_script "docker"
       ;;
-    4|all-auto)
-      run_remote_script "all-auto"
-      ;;
-    5|base-auto)
-      run_remote_script "base-auto"
-      ;;
-    6|singbox-lite)
+    4|singbox-lite)
       run_remote_script "singbox-lite"
       ;;
-    7|ip-check)
+    5|ip-check)
       run_remote_script "ip-check"
       ;;
-    8|add-swap)
+    6|add-swap)
       run_remote_script "add-swap"
       ;;
-    9|check-swap)
+    7|check-swap)
       run_remote_script "check-swap"
       ;;
-    10|media-check)
+    8|media-check)
       run_remote_script "media-check"
       ;;
-    11|check-bbr)
+    9|check-bbr)
       run_remote_script "check-bbr"
       ;;
-    12|node-quality)
+    10|node-quality)
       run_remote_script "node-quality"
       ;;
-    13|exit)
+    11|exit)
       printf "%s已退出。%s\n" "${C_WARN}" "${C_RESET}"
       ;;
     *)
@@ -174,7 +166,7 @@ prompt_choice() {
     read -r choice
 
     case "${choice:-}" in
-      1|2|3|4|5|6|7|8|9|10|11|12|13|apt-base|apk-base|docker|all-auto|base-auto|singbox-lite|ip-check|add-swap|check-swap|media-check|check-bbr|node-quality|exit)
+      1|2|3|4|5|6|7|8|9|10|11|apt-base|apk-base|docker|singbox-lite|ip-check|add-swap|check-swap|media-check|check-bbr|node-quality|exit)
         run_choice "$choice"
         return
         ;;
