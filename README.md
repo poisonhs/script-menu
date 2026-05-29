@@ -33,7 +33,7 @@ wget -qO- https://raw.githubusercontent.com/poisonhs/script-menu/main/bootstrap.
 安装 `bl` 短命令：
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install-bl.sh | sh
+(curl -LfsS https://raw.githubusercontent.com/poisonhs/script-menu/main/bootstrap.sh -o /usr/local/bin/bl || wget -q https://raw.githubusercontent.com/poisonhs/script-menu/main/bootstrap.sh -O /usr/local/bin/bl) && chmod +x /usr/local/bin/bl && bl
 ```
 
 安装完成后，后续直接运行：
