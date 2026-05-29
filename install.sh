@@ -32,27 +32,91 @@ EOF
   printf "%s\n" "${C_RESET}"
 }
 
+detect_package_manager() {
+  if command -v apt >/dev/null 2>&1; then
+    echo "apt"
+  elif command -v apk >/dev/null 2>&1; then
+    echo "apk"
+  elif command -v dnf >/dev/null 2>&1; then
+    echo "dnf"
+  elif command -v yum >/dev/null 2>&1; then
+    echo "yum"
+  else
+    return 1
+  fi
+}
+
+install_base_environment() {
+  local package_manager
+
+  if ! package_manager="$(detect_package_manager)"; then
+    printf "%s未识别到支持的包管理器，无法自动安装基础环境。%s\n" "${C_ERR}" "${C_RESET}"
+    return 1
+  fi
+
+  printf "%s检测到包管理器：%s%s%s\n" "${C_OK}" "${C_NUM}" "${package_manager}" "${C_RESET}"
+
+  case "${package_manager}" in
+    apt)
+      apt update -y
+      apt install -y bash curl wget sudo vim git
+      ;;
+    apk)
+      apk update
+      apk add bash curl wget sudo vim git
+      ;;
+    dnf)
+      dnf install -y bash curl wget sudo vim git
+      ;;
+    yum)
+      yum install -y bash curl wget sudo vim git
+      ;;
+  esac
+}
+
+ensure_fetch_tools() {
+  if command -v curl >/dev/null 2>&1 || command -v wget >/dev/null 2>&1; then
+    return 0
+  fi
+
+  printf "%s未检测到 curl/wget，开始自动安装基础环境。%s\n" "${C_WARN}" "${C_RESET}"
+  install_base_environment
+}
+
+fetch_script() {
+  local url="$1"
+
+  ensure_fetch_tools
+
+  if command -v curl >/dev/null 2>&1; then
+    curl -fsSL "${url}"
+  else
+    wget -qO- "${url}"
+  fi
+}
+
 show_menu() {
   print_header
   printf "%s[1]%s Ubuntu/Debian 基础环境安装 %s(apt-base)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
   printf "%s[2]%s Alpine 基础环境安装 %s(apk-base)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
   printf "%s[3]%s Docker 安装 %s(docker)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
   printf "%s[4]%s 自动识别系统并安装基础环境 + Docker %s(all-auto)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[5]%s 节点搭建 Singbox Lite %s(singbox-lite)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[6]%s IP 质量检测 IPv4 %s(ip-check)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[7]%s 添加 SWAP %s(add-swap)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[8]%s SWAP 检测 %s(check-swap)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[9]%s 流媒体检测 %s(media-check)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[10]%s BBR 检测 %s(check-bbr)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[11]%s NodeQuality 质量检测 %s(node-quality)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
-  printf "%s[12]%s 退出\n" "${C_NUM}" "${C_RESET}"
+  printf "%s[5]%s 自动识别系统并安装基础环境 %s(base-auto)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[6]%s 节点搭建 Singbox Lite %s(singbox-lite)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[7]%s IP 质量检测 IPv4 %s(ip-check)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[8]%s 添加 SWAP %s(add-swap)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[9]%s SWAP 检测 %s(check-swap)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[10]%s 流媒体检测 %s(media-check)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[11]%s BBR 检测 %s(check-bbr)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[12]%s NodeQuality 质量检测 %s(node-quality)%s\n" "${C_NUM}" "${C_RESET}" "${C_DIM}" "${C_RESET}"
+  printf "%s[13]%s 退出\n" "${C_NUM}" "${C_RESET}"
   printf "\n%s提示：%s 也可以直接传脚本名执行，例如：%sbash install.sh apt-base%s\n" "${C_WARN}" "${C_RESET}" "${C_OK}" "${C_RESET}"
 }
 
 run_remote_script() {
   local script_name="$1"
   printf "%s正在执行：%s%s%s\n" "${C_OK}" "${C_NUM}" "${script_name}" "${C_RESET}"
-  curl -fsSL "${REPO_RAW_BASE}/scripts/${script_name}.sh" | bash
+  fetch_script "${REPO_RAW_BASE}/scripts/${script_name}.sh" | bash
 }
 
 run_choice() {
@@ -69,28 +133,31 @@ run_choice() {
     4|all-auto)
       run_remote_script "all-auto"
       ;;
-    5|singbox-lite)
+    5|base-auto)
+      run_remote_script "base-auto"
+      ;;
+    6|singbox-lite)
       run_remote_script "singbox-lite"
       ;;
-    6|ip-check)
+    7|ip-check)
       run_remote_script "ip-check"
       ;;
-    7|add-swap)
+    8|add-swap)
       run_remote_script "add-swap"
       ;;
-    8|check-swap)
+    9|check-swap)
       run_remote_script "check-swap"
       ;;
-    9|media-check)
+    10|media-check)
       run_remote_script "media-check"
       ;;
-    10|check-bbr)
+    11|check-bbr)
       run_remote_script "check-bbr"
       ;;
-    11|node-quality)
+    12|node-quality)
       run_remote_script "node-quality"
       ;;
-    12|exit)
+    13|exit)
       printf "%s已退出。%s\n" "${C_WARN}" "${C_RESET}"
       ;;
     *)
@@ -107,7 +174,7 @@ prompt_choice() {
     read -r choice
 
     case "${choice:-}" in
-      1|2|3|4|5|6|7|8|9|10|11|12|apt-base|apk-base|docker|all-auto|singbox-lite|ip-check|add-swap|check-swap|media-check|check-bbr|node-quality|exit)
+      1|2|3|4|5|6|7|8|9|10|11|12|13|apt-base|apk-base|docker|all-auto|base-auto|singbox-lite|ip-check|add-swap|check-swap|media-check|check-bbr|node-quality|exit)
         run_choice "$choice"
         return
         ;;

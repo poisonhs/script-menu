@@ -11,6 +11,7 @@
     |-- apt-base.sh
     |-- apk-base.sh
     |-- add-swap.sh
+    |-- base-auto.sh
     |-- check-bbr.sh
     |-- check-swap.sh
     |-- docker.sh
@@ -33,6 +34,7 @@
 - `apk-base`: Alpine 基础环境安装
 - `docker`: Docker 安装
 - `all-auto`: 自动识别系统并安装基础环境 + Docker
+- `base-auto`: 自动识别系统并安装基础环境
 - `singbox-lite`: 节点搭建 Singbox Lite
 - `ip-check`: IP 质量检测 IPv4
 - `add-swap`: 添加 SWAP
@@ -55,6 +57,12 @@ This template is already configured for:
 bash <(curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh)
 ```
 
+无 `curl` / `wget` 的新机器，推荐先用这个自动识别命令：
+
+```sh
+sh -c 'URL="https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh"; if command -v curl >/dev/null 2>&1; then curl -fsSL "$URL" | bash; elif command -v wget >/dev/null 2>&1; then wget -qO- "$URL" | bash; elif command -v apt >/dev/null 2>&1; then apt update -y && apt install -y bash curl wget sudo vim git && curl -fsSL "$URL" | bash; elif command -v apk >/dev/null 2>&1; then apk update && apk add bash curl wget sudo vim git && curl -fsSL "$URL" | bash; elif command -v dnf >/dev/null 2>&1; then dnf install -y bash curl wget sudo vim git && curl -fsSL "$URL" | bash; elif command -v yum >/dev/null 2>&1; then yum install -y bash curl wget sudo vim git && curl -fsSL "$URL" | bash; else echo "不支持的系统：缺少 curl/wget，且未找到 apt/apk/dnf/yum"; exit 1; fi'
+```
+
 按脚本名直接执行：
 
 ```bash
@@ -62,6 +70,7 @@ curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.s
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- apk-base
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- docker
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- all-auto
+curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- base-auto
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- singbox-lite
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- ip-check
 curl -fsSL https://raw.githubusercontent.com/poisonhs/script-menu/main/install.sh | bash -s -- add-swap
