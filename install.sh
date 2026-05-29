@@ -160,21 +160,19 @@ run_choice() {
 }
 
 prompt_choice() {
-  local choice
-  while true; do
-    printf "\n%s请输入编号或脚本名：%s" "${C_OK}" "${C_RESET}"
-    read -r choice
+  printf "\n%s请输入编号或脚本名：%s" "${C_OK}" "${C_RESET}"
+  read -r MENU_CHOICE
 
-    case "${choice:-}" in
-      1|2|3|4|5|6|7|8|9|10|11|apt-base|apk-base|docker|singbox-lite|ip-check|add-swap|check-swap|media-check|check-bbr|node-quality|exit)
-        run_choice "$choice"
-        return
-        ;;
-      *)
-        printf "%s输入无效，请重新输入。%s\n" "${C_ERR}" "${C_RESET}"
-        ;;
-    esac
-  done
+  case "${MENU_CHOICE:-}" in
+    1|2|3|4|5|6|7|8|9|10|11|apt-base|apk-base|docker|singbox-lite|ip-check|add-swap|check-swap|media-check|check-bbr|node-quality|exit)
+      return 0
+      ;;
+    *)
+      printf "%s输入无效，请重新输入。%s\n" "${C_ERR}" "${C_RESET}"
+      MENU_CHOICE=""
+      return 1
+      ;;
+  esac
 }
 
 main() {
@@ -185,8 +183,22 @@ main() {
     return
   fi
 
-  show_menu
-  prompt_choice
+  while true; do
+    show_menu
+    if ! prompt_choice; then
+      continue
+    fi
+
+    if [[ "${MENU_CHOICE}" == "11" || "${MENU_CHOICE}" == "exit" ]]; then
+      run_choice "$MENU_CHOICE"
+      return
+    fi
+
+    run_choice "$MENU_CHOICE"
+    printf "\n%s按回车返回菜单...%s" "${C_WARN}" "${C_RESET}"
+    read -r _
+    printf "\n"
+  done
 }
 
 main "$@"
