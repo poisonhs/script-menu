@@ -66,16 +66,36 @@ download_install_script() {
   fi
 }
 
+create_temp_file() {
+  if tmp_file="$(mktemp /tmp/script-menu.XXXXXX.sh 2>/dev/null)"; then
+    echo "${tmp_file}"
+    return 0
+  fi
+
+  if tmp_file="$(mktemp -t script-menu.XXXXXX 2>/dev/null)"; then
+    echo "${tmp_file}"
+    return 0
+  fi
+
+  tmp_file="/tmp/script-menu.$$.$(date +%s).sh"
+  : > "${tmp_file}"
+  echo "${tmp_file}"
+}
+
 main() {
   ensure_fetch_tools
 
-  tmp_file="$(mktemp /tmp/script-menu.XXXXXX.sh)"
+  tmp_file="$(create_temp_file)"
   trap 'rm -f "${tmp_file}"' EXIT INT TERM
 
   download_install_script "${tmp_file}"
   chmod +x "${tmp_file}"
 
-  bash "${tmp_file}" "$@"
+  if [ -r /dev/tty ]; then
+    bash "${tmp_file}" "$@" </dev/tty
+  else
+    bash "${tmp_file}" "$@"
+  fi
 }
 
 main "$@"
