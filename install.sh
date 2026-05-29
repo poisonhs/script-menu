@@ -107,6 +107,47 @@ run_downloaded_script() {
   rm -f "${tmp_file}"
 }
 
+get_display_name() {
+  case "${1:-}" in
+    1|apt-base)
+      printf "Ubuntu/Debian 基础环境安装"
+      ;;
+    2|apk-base)
+      printf "Alpine 基础环境安装"
+      ;;
+    3|docker)
+      printf "Docker 安装"
+      ;;
+    4|singbox-lite)
+      printf "节点搭建 Singbox Lite"
+      ;;
+    5|ip-check)
+      printf "IP 质量检测 IPv4"
+      ;;
+    6|add-swap)
+      printf "添加 SWAP"
+      ;;
+    7|check-swap)
+      printf "SWAP 检测"
+      ;;
+    8|media-check)
+      printf "流媒体检测"
+      ;;
+    9|check-bbr)
+      printf "BBR 检测"
+      ;;
+    10|node-quality)
+      printf "NodeQuality 质量检测"
+      ;;
+    11|exit)
+      printf "退出"
+      ;;
+    *)
+      printf "%s" "${1:-}"
+      ;;
+  esac
+}
+
 show_menu() {
   print_header
   printf "%s[1]%s Ubuntu/Debian 基础环境安装\n" "${C_NUM}" "${C_RESET}"
@@ -125,7 +166,10 @@ show_menu() {
 
 run_remote_script() {
   local script_name="$1"
-  printf "%s正在执行：%s%s%s\n" "${C_OK}" "${C_NUM}" "${script_name}" "${C_RESET}"
+  local display_name
+
+  display_name="$(get_display_name "$script_name")"
+  printf "%s正在执行：%s%s%s\n" "${C_OK}" "${C_NUM}" "${display_name}" "${C_RESET}"
   run_downloaded_script "${script_name}"
 }
 
